@@ -1,0 +1,25 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# IDE specific
+/.idea
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+#/build
+
+*.zip
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# secrets
+secrets.*.js
