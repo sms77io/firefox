@@ -30,9 +30,10 @@ const fileExtensions = [
 const options = {
     mode: process.env.NODE_ENV || 'development',
     entry: {
+        background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
         options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
-        background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
+        contentScripts: path.join(__dirname, 'src', 'contentScripts.js'),
     },
     output: {
         path: path.join(__dirname, 'build'),
@@ -99,23 +100,12 @@ const options = {
         new HtmlWebpackPlugin({
             chunks: ['options'],
             filename: 'options.html',
-            template: path.join(__dirname, 'src', 'pages', 'Options', 'index.html'),
+            template: path.join(__dirname, 'src', 'pages', 'template.html'),
         }),
         new HtmlWebpackPlugin({
             chunks: ['popup'],
             filename: 'popup.html',
-            template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['background'],
-            filename: 'background.html',
-            template: path.join(
-                __dirname,
-                'src',
-                'pages',
-                'Background',
-                'index.html'
-            ),
+            template: path.join(__dirname, 'src', 'pages', 'template.html'),
         }),
         new WriteFilePlugin(),
     ],

@@ -1,8 +1,8 @@
-# Sms77.io Firefox Add-On
-Send SMS via Firefox through the sms77.io SMS gateway.
+# sms77io Firefox Add-On
+Send SMS via Firefox through the sms77io SMS gateway.
 
 ## Prerequisites
-You need an API key in  order to make use of the sms77.io SMS gateway.
+You need an API key in order to make use of the sms77io SMS gateway.
 Get yours now at sms77.io!
 
 ### Installation
