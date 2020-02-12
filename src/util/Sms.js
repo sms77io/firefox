@@ -1,40 +1,54 @@
 import {General} from './General';
-import {Storage} from './Storage';
+import {Settings} from './Settings';
 
 export class Sms {
     static async getApiKey() {
-        let apiKey = await Storage.getByKey(Storage.keys.apiKey);
+        const errMsg = 'You need a valid API key in order to send SMS.';
+
+        let apiKey = await Settings.getByKey('apiKey');
 
         if (!apiKey) {
-            apiKey = await General.prompt('Please enter a sender identifier. You can set a default one in the settings.');
+            apiKey = window.prompt(errMsg);
 
             if (apiKey) {
-                Storage.setByKey(Storage.keys.apiKey, apiKey);
+                await Settings.setByKey('apiKey', apiKey);
             }
+        }
+
+        if (!apiKey || !apiKey.length) {
+            throw new Error(errMsg);
         }
 
         return apiKey;
     };
 
-    static async getFrom() {
-        let from = await Storage.getByKey(Storage.keys.from);
+    static async promptEmpty(key, msg) {
+        let value = await Settings.getByKey(key);
 
-        if (!from) {
-            from = await General.prompt('Please enter a sender identifier. You can set a default one in the settings.');
+        if (!value || !value.length) {
+            value = window.prompt(msg);
         }
 
-        return from;
+        return value;
+    }
+
+    static async getFrom() {
+        return Sms.promptEmpty('from',
+            'You may enter a sender identifier. You can set a default one in the settings.');
     };
 
     static async getText(text) {
         if (!text || !text.length) {
-            text = await General.prompt('Please enter the SMS content.');
+            text = window.prompt('Please enter the SMS content.');
         }
         text = text || '';
 
-        const signature = await Storage.getByKey(Storage.keys.signature);
+        const signature = await Settings.getByKey('signature');
+        if (signature) {
+            const signaturePosition = await Settings.getByKey('signaturePosition');
 
-        text = `${text}${signature || ''}`;
+            text = 'append' === signaturePosition ? `${text}${signature}` : `${signature}${text}`;
+        }
 
         if (!text || !text.length) {
             throw new Error('You must specify a valid SMS message content.');
@@ -44,11 +58,7 @@ export class Sms {
     };
 
     static async getTo() {
-        let to = await Storage.getByKey(Storage.keys.to);
-
-        if (!to || !to.length) {
-            to = await General.prompt('Recipient','Please enter a recipient number or address book entry.');
-        }
+        let to = await Sms.promptEmpty('to', 'Please enter a recipient number or address book entry.');
 
         if (!to || !to.length) {
             throw new Error('You must specify a valid recipient phone number or address book entry.');
@@ -73,7 +83,9 @@ export class Sms {
         try {
             const apiKey = await Sms.getApiKey();
             if (!apiKey || !apiKey.length) {
-                await General.notify('You need to set your API key in the plugins page in order to send SMS.', 'Missing API key!');
+                await General.notify(
+                    'You need to set your API key in the plugins page in order to send SMS.',
+                    'Missing API key!');
                 return;
             }
 
@@ -83,8 +95,10 @@ export class Sms {
 
             from = from || await Sms.getFrom();
 
-            let response = await window.fetch(Sms.getUrl(apiKey, to, text, from));
-            response = await response.text();
+            const url = Sms.getUrl(apiKey, to, text, from);
+
+            const res = await window.fetch(url);
+            const response = await res.text();
 
             const info = 'string' === typeof response
                 ? '100' === response

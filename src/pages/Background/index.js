@@ -1,14 +1,21 @@
-import {Sms} from '../../util/Sms';
-import '../../assets/img/icon16.png';
-import '../../assets/img/icon19.png';
-import '../../assets/img/icon32.png';
-import '../../assets/img/icon48.png';
-import '../../assets/img/icon128.png';
+browser.runtime.onMessage.addListener(async ({action, notification}) => {
+    if ('NOTIFY' === action) {
+        notification = {
+            ...{
+                type: 'basic',
+                title: 'Sms77 has something to say...',
+            },
+            ...notification
+        };
+
+        await browser.notifications.create(notification);
+    }
+});
 
 browser.contextMenus.onClicked.addListener(async ({selectionText}) => {
-    const text = await Sms.getText(selectionText);
+    const activeTab = [...await browser.tabs.query({active: true})].shift();
 
-    return await Sms.send(text, null, null, prompt);
+    await browser.tabs.sendMessage(activeTab.id, {selectionText});
 });
 
 browser.runtime.onInstalled.addListener(() => browser.contextMenus.create({

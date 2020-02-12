@@ -1,46 +1,54 @@
 {
-  "applications": {
-    "gecko": {
-      "id": "firefox@sms77.io"
-    }
-  },
-  "background": {
-    "page": "background.html"
-  },
-  "browser_action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon48.png"
-  },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "icons": {
-    "16": "icon16.png",
-    "19": "icon19.png",
-    "32": "icon32.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
-  },
-  "manifest_version": 2,
-  "name": "Sms77 Firefox Add-On",
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": false,
-    "chrome_style": false
-  },
-  "permissions": [
-    "activeTab",
-    "storage",
-    "contextMenus",
-    "notifications",
-    "<all_urls>",
-    "tabs",
-    "webRequest"
-  ],
-  "version": "1.0.0",
-  "web_accessible_resources": [
-    "icon16.png",
-    "icon19.png",
-    "icon32.png",
-    "icon48.png",
-    "icon128.png"
-  ]
+    "applications": {
+        "gecko": {
+            "id": "firefox@sms77.io"
+        }
+    },
+    "background": {
+        "scripts": [
+            "background.bundle.js"
+        ]
+    },
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon48.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "contentScripts.bundle.js"
+            ]
+        }
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self'",
+    "icons": {
+        "16": "icon16.png",
+        "19": "icon19.png",
+        "32": "icon32.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "manifest_version": 2,
+    "name": "Sms77 Firefox Add-On",
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true
+    },
+    "permissions": [
+        "storage",
+        "contextMenus",
+        "notifications",
+        "*://gateway.sms77.io/*"
+    ],
+    "version": "1.0.0",
+    "web_accessible_resources": [
+        "icon16.png",
+        "icon19.png",
+        "icon32.png",
+        "icon48.png",
+        "icon128.png"
+    ]
 }
