@@ -3,7 +3,7 @@ browser.runtime.onMessage.addListener(async ({action, notification}) => {
         notification = {
             ...{
                 type: 'basic',
-                title: 'Sms77 has something to say...',
+                title: browser.i18n.getMessage('notification_title'),
             },
             ...notification
         };
@@ -20,5 +20,5 @@ browser.contextMenus.onClicked.addListener(async ({selectionText}) => {
 
 browser.runtime.onInstalled.addListener(() => browser.contextMenus.create({
     contexts: ['selection'],
-    title: 'Send SMS via Sms77.io',
+    title: browser.i18n.getMessage('send_via_us'),
 }));

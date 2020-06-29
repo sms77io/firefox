@@ -1,6 +1,6 @@
 import 'material-design-lite/material.min';
 import React, {useEffect, useState} from 'react';
-import {Button, Radio, RadioGroup, Textfield} from 'react-mdl';
+import {Button, Radio, RadioGroup, Textfield} from 'react-mdl ';
 
 import {General} from '../../util/General';
 import {Settings} from '../../util/Settings';
@@ -18,7 +18,7 @@ export default () => {
 
         setState(await Settings.setObject(settings));
 
-        await General.notify('Your settings have been updated.', 'Settings updated!');
+        await General.notify(browser.i18n.getMessage('settings_updated'), browser.i18n.getMessage('settings_updated_title'));
     };
 
     useEffect(() => {
@@ -32,58 +32,59 @@ export default () => {
         <div style={{display: 'flex', 'flexDirection': 'column'}}>
             <Textfield
                 floatingLabel
-                label='API-Key'
+                label={browser.i18n.getMessage('api_key')}
                 name='apiKey'
                 placeholder={state.apiKey}
                 defaultValue={state.apiKey}
             />
             <p>
-                An API key is required in order to send SMS. Get yours now at <a
-                href='http://sms77.io'>sms77.io</a>.
+                {browser.i18n.getMessage('api_key_required')}. {browser.i18n.getMessage('api_key_get')}
+                <a href='http://sms77.io'>sms77.io</a>.
             </p>
 
             <Textfield
                 floatingLabel
-                label='From'
+                label={browser.i18n.getMessage('from')}
                 name='from'
                 defaultValue={state.from}
                 placeholder={state.from}
             />
             <p>
-                Please notice that if you set a 'from' value you will not be asked again before sending SMS.
+                {browser.i18n.getMessage('from_info')}
             </p>
 
             <Textfield
                 floatingLabel
-                label='To'
+                label={browser.i18n.getMessage('to')}
                 name='to'
                 defaultValue={state.to}
                 placeholder={state.to}
             />
             <p>
-                Please notice that if you set a 'to' value you will not be asked again before sending SMS.
+                {browser.i18n.getMessage('from_info')}
             </p>
 
             <Textfield
                 floatingLabel
-                label='Signature'
+                label={browser.i18n.getMessage('signature')}
                 name='signature'
                 rows={3}
                 defaultValue={state.signature}
                 placeholder={state.signature}
             />
             <p>
-                The signature gets appended to each SMS.
+                {browser.i18n.getMessage('signature_label')}
             </p>
 
-            <RadioGroup name="signature_position" value="append">
-                <Radio value="prepend">Prepend before text</Radio>
-                <Radio value="append">Append after text</Radio>
+            <RadioGroup name='signature_position' value='append'>
+                <Radio
+                    value='prepend'>{browser.i18n.getMessage('signature_position_prepend')}</Radio>
+                <Radio value='append'>{browser.i18n.getMessage('signature_position_append')}</Radio>
             </RadioGroup>
         </div>
 
         <Button raised ripple type='submit'>
-            Submit
+            {browser.i18n.getMessage('submit')}
         </Button>
     </form>;
 }

@@ -1,0 +1,116 @@
+{
+    "api_key": {
+        "message": "API-Schlüssel"
+    },
+    "api_key_required": {
+        "message": "API-Schlüssel von Sms77.io erforderlich zum Versenden"
+    },
+    "api_key_get": {
+        "message": "Erhalten Sie ihren Schlüssel jetzt: "
+    },
+    "api_key_set": {
+        "message": "Bitte in den Optionen Ihren API-Schlüssel eingeben um SMS versenden zu können."
+    },
+    "options": {
+        "message": "Optionen"
+    },
+    "from": {
+        "message": "Absenderkennung"
+    },
+    "from_info": {
+        "message": "Achtung: Wird hier die \"Absenderkennung\" gesetzt, werden Sie beim Verfassen nicht erneut danach gefragt."
+    },
+    "send_via_us": {
+        "message": "SMS senden via Sms77.io"
+    },
+    "send_sms": {
+        "message": "SMS senden"
+    },
+    "to": {
+        "message": "Adressat(en)"
+    },
+    "to_info": {
+        "message": "Achtung: Wird hier das Feld \"Adressat(en)\" gesetzt, werden Sie beim Verfassen nicht erneut danach gefragt"
+    },
+    "notification_title": {
+        "message": "sms77io hat was zu erzählen..."
+    },
+    "settings_updated": {
+        "message": "Ihre Einstellungen wurden aktualisiert."
+    },
+    "settings_updated_title": {
+        "message": "Einstellungen aktualisiert!"
+    },
+    "signature": {
+        "message": "Signatur"
+    },
+    "signature_label": {
+        "message": "Signatur zu allen ausgehenden Nachrichten hinzufügen"
+    },
+    "signature_position_append": {
+        "message": "Signatur anhängen"
+    },
+    "signature_position_prepend": {
+        "message": "Signatur voranstellen"
+    },
+    "submit": {
+        "message": "Absenden"
+    },
+    "sms_status": {
+        "message": "SMS Status"
+    },
+    "prompt_from": {
+        "message": "Sie können eine Absenderkennung eingeben. Ein Standardwert kann in den Optionen gesetz werden."
+    },
+    "prompt_text": {
+        "message": "Bitte geben Sie den SMS-Inhalt ein."
+    },
+    "prompt_to": {
+        "message": "Bitte geben Sie Rufnummer(n) und/oder Adressbucheinträge ein."
+    },
+    "error_text": {
+        "message": "Sie müssen einen gültigen SMS-Inhalt angeben."
+    },
+    "error_to": {
+        "message": "Sie müssen gültige Empfänger in Form von Rufnummer(n) und/oder Adressbucheinträge angeben."
+    },
+    "error_url": {
+        "message": "Ungültige Adresse für Anfrage: '$url$'. Bitte kontaktieren SIe Sms77 via info@sms77.io.",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://gateway.sms77.io/api/balance?p=MyDummyApiKey!!"
+            }
+        }
+    },
+    "sms_dispatch_success": {
+        "message": "SMS erfolgreich gesendet an '$to$' von '$from$': $text$",
+        "placeholders": {
+            "to": {
+                "content": "$1",
+                "example": "+4901234567890"
+            },
+            "from": {
+                "content": "$2",
+                "example": "Tim der Tester"
+            },
+            "text": {
+                "content": "$3",
+                "example": "HI2U!"
+            }
+        }
+    },
+    "sms_dispatch_error": {
+        "message": "Fehler beim Versenden von SMS an '$to$'. Der Fehlercode lautet: '$errorCode$'.",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "+4901234567890"
+            },
+            "errorCode": {
+                "content": "$2",
+                "example": "900"
+            }
+        }
+    }
+}

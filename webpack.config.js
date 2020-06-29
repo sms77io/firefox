@@ -1,4 +1,3 @@
-// Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 
@@ -77,24 +76,21 @@ const options = {
             verbose: true
         }),
         new webpack.EnvironmentPlugin(['NODE_ENV']),    // expose and write the allowed env vars on the compiled bundle
-        new CopyWebpackPlugin(
-            [
-                {
-                    force: true,
-                    from: 'src/manifest.json',
-                    to: path.join(__dirname, 'build'),
-                    transform: content => Buffer.from(
-                        JSON.stringify({
-                            description: process.env.npm_package_description,
-                            version: process.env.npm_package_version,
-                            ...JSON.parse(content.toString()),
-                        })
-                    ),
-                },
-            ],
-            {
-                logLevel: 'info',
-                copyUnmodified: true,
+        new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        force: true,
+                        from: 'src/manifest.json',
+                        to: path.join(__dirname, 'build'),
+                        transform: content => Buffer.from(
+                            JSON.stringify({
+                                description: process.env.npm_package_description,
+                                version: process.env.npm_package_version,
+                                ...JSON.parse(content.toString()),
+                            })
+                        ),
+                    },
+                ]
             }
         ),
         new HtmlWebpackPlugin({

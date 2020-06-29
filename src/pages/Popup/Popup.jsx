@@ -37,11 +37,11 @@ export default () => {
              style={{marginBottom: '15px', marginTop: '15px', maxWidth: '150px',}}/>
 
         <Button style={{marginBottom: '10px'}} onClick={handleOptions} raised colored ripple>
-            Options
+            {browser.i18n.getMessage('options')}
         </Button>
 
         <Button style={{marginBottom: '10px'}} onClick={onSend} raised ripple>
-            Send SMS
+            {browser.i18n.getMessage('send_sms')}
         </Button>
     </div>;
 }

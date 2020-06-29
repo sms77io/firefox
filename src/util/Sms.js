@@ -3,7 +3,7 @@ import {Settings} from './Settings';
 
 export class Sms {
     static async getApiKey() {
-        const errMsg = 'You need a valid API key in order to send SMS.';
+        const errMsg = browser.i18n.getMessage('api_key_required');
 
         let apiKey = await Settings.getByKey('apiKey');
 
@@ -33,13 +33,12 @@ export class Sms {
     }
 
     static async getFrom() {
-        return Sms.promptEmpty('from',
-            'You may enter a sender identifier. You can set a default one in the settings.');
+        return Sms.promptEmpty('from', browser.i18n.getMessage('prompt_from'));
     };
 
     static async getText(text) {
         if (!text || !text.length) {
-            text = window.prompt('Please enter the SMS content.');
+            text = window.prompt(browser.i18n.getMessage('prompt_text'));
         }
         text = text || '';
 
@@ -51,29 +50,29 @@ export class Sms {
         }
 
         if (!text || !text.length) {
-            throw new Error('You must specify a valid SMS message content.');
+            throw new Error(browser.i18n.getMessage('error_text'));
         }
 
         return text;
     };
 
     static async getTo() {
-        let to = await Sms.promptEmpty('to', 'Please enter a recipient number or address book entry.');
+        let to = await Sms.promptEmpty('to', browser.i18n.getMessage('prompt_to'));
 
         if (!to || !to.length) {
-            throw new Error('You must specify a valid recipient phone number or address book entry.');
+            throw new Error(browser.i18n.getMessage('error_to'));
         }
 
         return to;
     };
 
     static getUrl(p, to, text, from) {
-        const api = `https://gateway.sms77.io/api/sms?p=${p}&to=${to}&text=${text}&from=${from || ''}&sendwith=firefox`;
+        const api = `https://gateway.sms77.io/api/sms?p=${p}&to=${to}&text=${text}&from=${from || ''}&sendWith=firefox`;
 
         const url = new URL(api).href;
 
         if (!General.isValidUrl(url)) {
-            throw new Error(`Invalid URL for request: '${url}'. Please contact Sms77 on info@sms77.io.`);
+            throw new Error(browser.i18n.getMessage('error_url', [url]));
         }
 
         return url;
@@ -83,9 +82,8 @@ export class Sms {
         try {
             const apiKey = await Sms.getApiKey();
             if (!apiKey || !apiKey.length) {
-                await General.notify(
-                    'You need to set your API key in the plugins page in order to send SMS.',
-                    'Missing API key!');
+                await General.notify(browser.i18n.getMessage('api_key_set'),
+                    browser.i18n.getMessage('api_key_required'));
                 return;
             }
 
@@ -102,8 +100,8 @@ export class Sms {
 
             const info = 'string' === typeof response
                 ? '100' === response
-                    ? `SMS successfully sent to '${to}' from '${from}': ${text}`
-                    : `An error occurred while sending SMS to '${to}'. The returned error code is: '${response}'.`
+                    ? browser.i18n.getMessage('sms_dispatch_success', [to, from, text])
+                    :  browser.i18n.getMessage('sms_dispatch_error', [to, response])
                 : JSON.stringify(response);
 
             await General.notify(info);

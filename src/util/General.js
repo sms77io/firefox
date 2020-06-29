@@ -1,4 +1,6 @@
 export class General {
+    static WRAPPER_ID = 'app-container';
+
     static isValidUrl(string) {
         try {
             new URL(string);
@@ -9,7 +11,7 @@ export class General {
         }
     }
 
-    static async notify(message, title = 'SMS Status', type = 'basic') {
+    static async notify(message, title = browser.i18n.getMessage('sms_status'), type = 'basic') {
         return browser.runtime.sendMessage({
             action: 'NOTIFY', notification: {
                 type,

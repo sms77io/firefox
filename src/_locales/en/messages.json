@@ -1,0 +1,116 @@
+{
+    "api_key": {
+        "message": "API Key"
+    },
+    "api_key_required": {
+        "message": "API key from sms77.io required for sending"
+    },
+    "api_key_get": {
+        "message": "Get yours now at: "
+    },
+    "api_key_set": {
+        "message": "Please head to the options page and set your API key in order to send SMS."
+    },
+    "options": {
+        "message": "Options"
+    },
+    "from": {
+        "message": "From"
+    },
+    "from_info": {
+        "message": "Please notice that if you set a 'from' value you will not be asked again before sending SMS."
+    },
+    "send_via_us": {
+        "message": "Send SMS via Sms77.io"
+    },
+    "send_sms": {
+        "message": "Send SMS"
+    },
+    "to": {
+        "message": "To"
+    },
+    "to_info": {
+        "message": "Please notice that if you set a 'to' value you will not be asked again before sending SMS."
+    },
+    "notification_title": {
+        "message": "sms77io has something to say..."
+    },
+    "settings_updated": {
+        "message": "Your settings have been updated."
+    },
+    "settings_updated_title": {
+        "message": "Settings updated!"
+    },
+    "signature": {
+        "message": "Signature"
+    },
+    "signature_label": {
+        "message": "Signature added to all outgoing messages"
+    },
+    "signature_position_append": {
+        "message": "Append after text"
+    },
+    "signature_position_prepend": {
+        "message": "Prepend before text"
+    },
+    "submit": {
+        "message": "Submit"
+    },
+    "sms_status": {
+        "message": "SMS Status"
+    },
+    "prompt_from": {
+        "message": "You may enter a sender identifier. You can set a default one in the settings."
+    },
+    "prompt_text": {
+        "message": "Please enter the SMS content."
+    },
+    "prompt_to": {
+        "message": "Please enter a recipient phone number or address book entry."
+    },
+    "error_text": {
+        "message": "You must specify a valid SMS message content."
+    },
+    "error_to": {
+        "message": "You must specify a valid recipient phone number or address book entry."
+    },
+    "error_url": {
+        "message": "Invalid URL for request: '$url$'. Please contact Sms77 on info@sms77.io.",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://gateway.sms77.io/api/balance?p=MyDummyApiKey!!"
+            }
+        }
+    },
+    "sms_dispatch_success": {
+        "message": "SMS successfully sent to '$to$' from '$from$': $text$",
+        "placeholders": {
+            "to": {
+                "content": "$1",
+                "example": "+4901234567890"
+            },
+            "from": {
+                "content": "$2",
+                "example": "Tim the Tester"
+            },
+            "text": {
+                "content": "$3",
+                "example": "HI2U!"
+            }
+        }
+    },
+    "sms_dispatch_error": {
+        "message": "An error occurred while sending SMS to '$to$'. The returned error code is: '$errorCode$'.",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "+4901234567890"
+            },
+            "errorCode": {
+                "content": "$2",
+                "example": "900"
+            }
+        }
+    }
+}
