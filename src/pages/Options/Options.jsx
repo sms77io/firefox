@@ -1,6 +1,6 @@
 import 'material-design-lite/material.min';
 import React, {useEffect, useState} from 'react';
-import {Button, Radio, RadioGroup, Textfield} from 'react-mdl ';
+import {Button, Radio, RadioGroup, Textfield} from 'react-mdl';
 
 import {General} from '../../util/General';
 import {Settings} from '../../util/Settings';

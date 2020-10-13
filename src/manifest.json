@@ -24,6 +24,7 @@
         }
     ],
     "content_security_policy": "script-src 'self'; object-src 'self'",
+    "default_locale": "en",
     "icons": {
         "16": "icon16.png",
         "19": "icon19.png",

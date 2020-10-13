@@ -1,7 +1,6 @@
 import 'material-design-lite/material.min';
 import React, {useState} from 'react';
 import {Button} from 'react-mdl';
-
 import '../../assets/img/icon16.png';
 import '../../assets/img/icon19.png';
 import '../../assets/img/icon32.png';
