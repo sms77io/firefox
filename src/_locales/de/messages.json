@@ -2,6 +2,9 @@
     "api_key": {
         "message": "API-Schlüssel"
     },
+    "api_key_info": {
+        "message": "API-Schlüssel von Sms77.io erforderlich zum Versenden. Erhalten Sie ihren Schlüssel jetzt auf Sms77.io."
+    },
     "api_key_required": {
         "message": "API-Schlüssel von Sms77.io erforderlich zum Versenden"
     },
@@ -26,6 +29,9 @@
     "send_sms": {
         "message": "SMS senden"
     },
+    "send_voice": {
+        "message": "Sprachnachricht senden"
+    },
     "to": {
         "message": "Adressat(en)"
     },
@@ -41,11 +47,17 @@
     "settings_updated_title": {
         "message": "Einstellungen aktualisiert!"
     },
+    "pleaseChoose": {
+        "message": "Bitte wählen"
+    },
     "signature": {
         "message": "Signatur"
     },
     "signature_label": {
         "message": "Signatur zu allen ausgehenden Nachrichten hinzufügen"
+    },
+    "signaturePosition": {
+        "message": "Signatur-Position"
     },
     "signature_position_append": {
         "message": "Signatur anhängen"
@@ -63,16 +75,16 @@
         "message": "Sie können eine Absenderkennung eingeben. Ein Standardwert kann in den Optionen gesetz werden."
     },
     "prompt_text": {
-        "message": "Bitte geben Sie den SMS-Inhalt ein."
+        "message": "Bitte geben Sie den Nachrichteninhalt ein."
     },
     "prompt_to": {
         "message": "Bitte geben Sie Rufnummer(n) und/oder Adressbucheinträge ein."
     },
     "error_text": {
-        "message": "Sie müssen einen gültigen SMS-Inhalt angeben."
+        "message": "Sie müssen einen gültigen Nachrichteninhalt angeben."
     },
     "error_to": {
-        "message": "Sie müssen gültige Empfänger in Form von Rufnummer(n) und/oder Adressbucheinträge angeben."
+        "message": "SMS: Empfänger in Form von Rufnummer(n) und/oder Adressbucheinträgen. Sprachnachricht: Exakt eine Rufnummer."
     },
     "error_url": {
         "message": "Ungültige Adresse für Anfrage: '$url$'. Bitte kontaktieren SIe Sms77 via info@sms77.io.",
@@ -84,31 +96,39 @@
         }
     },
     "sms_dispatch_success": {
-        "message": "SMS erfolgreich gesendet an '$to$' von '$from$': $text$",
+        "message": "$type$ erfolgreich gesendet an '$to$' von '$from$': $text$",
         "placeholders": {
-            "to": {
+            "type": {
                 "content": "$1",
+                "example": "SMS"
+            },
+            "to": {
+                "content": "$2",
                 "example": "+4901234567890"
             },
             "from": {
-                "content": "$2",
+                "content": "$3",
                 "example": "Tim der Tester"
             },
             "text": {
-                "content": "$3",
+                "content": "$4",
                 "example": "HI2U!"
             }
         }
     },
     "sms_dispatch_error": {
-        "message": "Fehler beim Versenden von SMS an '$to$'. Der Fehlercode lautet: '$errorCode$'.",
+        "message": "Fehler beim Versenden von $type$ an '$to$'. Der Fehlercode lautet: '$errorCode$'.",
         "placeholders": {
-            "url": {
+            "type": {
                 "content": "$1",
+                "example": "SMS"
+            },
+            "to": {
+                "content": "$2",
                 "example": "+4901234567890"
             },
             "errorCode": {
-                "content": "$2",
+                "content": "$3",
                 "example": "900"
             }
         }

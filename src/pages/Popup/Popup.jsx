@@ -7,13 +7,19 @@ import '../../assets/img/icon32.png';
 import '../../assets/img/icon48.png';
 import '../../assets/img/icon128.png';
 import logo from '../../assets/img/logo.svg';
-import {Sms} from '../../util/Sms';
+import {General} from '../../util/General';
 
 export default () => {
     const [text, setText] = useState(null);
 
-    const onSend = async () => {
-        await Sms.send(text);
+    const handleClickSendSms = async () => {
+        await General.sendSMS(text);
+
+        setText(null);
+    };
+
+    const handleClickSendVoice = async () => {
+        await General.sendVoice(text);
 
         setText(null);
     };
@@ -39,8 +45,12 @@ export default () => {
             {browser.i18n.getMessage('options')}
         </Button>
 
-        <Button style={{marginBottom: '10px'}} onClick={onSend} raised ripple>
+        <Button style={{marginBottom: '10px'}} onClick={handleClickSendSms} raised ripple>
             {browser.i18n.getMessage('send_sms')}
+        </Button>
+
+        <Button style={{marginBottom: '10px'}} onClick={handleClickSendVoice} raised ripple>
+            {browser.i18n.getMessage('send_voice')}
         </Button>
     </div>;
 }

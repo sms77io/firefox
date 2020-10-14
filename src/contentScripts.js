@@ -1,7 +1,5 @@
-import {Sms} from './util/Sms';
+import {General} from './util/General';
 
 browser.runtime.onMessage.addListener(async ({selectionText}) => {
-    const text = await Sms.getText(selectionText);
-
-    await Sms.send(text);
+    await General.sendSMS(await General.getText(selectionText));
 });

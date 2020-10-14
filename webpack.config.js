@@ -12,15 +12,21 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-const buildPath = path.join(__dirname, 'build')
+const buildPath = path.join(__dirname, 'build');
+
+const pageTemplate = name => new HtmlWebpackPlugin({
+    chunks: [name],
+    filename: `${name}.html`,
+    template: path.join(__dirname, 'src', 'pages', 'template.html'),
+});
 
 const fileExtensions = [
-    'jpg',
-    'jpeg',
-    'png',
-    'gif',
     'eot',
+    'gif',
+    'jpeg',
+    'jpg',
     'otf',
+    'png',
     'svg',
     'ttf',
     'woff',
@@ -28,38 +34,41 @@ const fileExtensions = [
 ];
 
 const options = {
+    optimization: {
+        minimize: false
+    },
     mode: process.env.NODE_ENV || 'development',
     entry: {
         background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
+        contentScripts: path.join(__dirname, 'src', 'contentScripts.js'),
         options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
         popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
-        contentScripts: path.join(__dirname, 'src', 'contentScripts.js'),
     },
     output: {
-        path: buildPath,
         filename: '[name].bundle.js',
+        path: buildPath,
     },
     module: {
         rules: [
             {
-                test: /\.css$/,
+                exclude: /node_modules/,
                 loader: 'style-loader!css-loader',
-                exclude: /node_modules/,
+                test: /\.css$/,
             },
             {
-                test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
+                exclude: /node_modules/,
                 loader: 'file-loader?name=[name].[ext]',
-                exclude: /node_modules/,
+                test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
             },
             {
-                test: /\.html$/,
+                exclude: /node_modules/,
                 loader: 'html-loader',
-                exclude: /node_modules/,
+                test: /\.html$/,
             },
             {
-                test: /\.(js|jsx)$/,
-                loader: 'babel-loader',
                 exclude: /node_modules/,
+                loader: 'babel-loader',
+                test: /\.(js|jsx)$/,
             },
         ],
     },
@@ -67,15 +76,11 @@ const options = {
         alias: {
             'react-dom': '@hot-loader/react-dom',
         },
-        extensions: fileExtensions
-            .map((extension) => '.' + extension)
-            .concat(['.jsx', '.js', '.css']),
+        extensions: fileExtensions.map(ext => `.${ext}`).concat(['.jsx', '.js', '.css']),
     },
     plugins: [
         new webpack.ProgressPlugin(),
-        new CleanWebpackPlugin({ // clean the build folder
-            verbose: true
-        }),
+        new CleanWebpackPlugin({verbose: true}),  // clean the build folder
         new webpack.EnvironmentPlugin(['NODE_ENV']),    // expose and write the allowed env vars on the compiled bundle
         new CopyWebpackPlugin({
             patterns: [
@@ -91,19 +96,11 @@ const options = {
                         })
                     ),
                 },
-                { from: 'src/_locales', to:  `${buildPath}/_locales` },
+                {from: 'src/_locales', to: `${buildPath}/_locales`},
             ]
         }),
-        new HtmlWebpackPlugin({
-            chunks: ['options'],
-            filename: 'options.html',
-            template: path.join(__dirname, 'src', 'pages', 'template.html'),
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['popup'],
-            filename: 'popup.html',
-            template: path.join(__dirname, 'src', 'pages', 'template.html'),
-        }),
+        pageTemplate('options'),
+        pageTemplate('popup'),
         new WriteFilePlugin(),
     ],
 };

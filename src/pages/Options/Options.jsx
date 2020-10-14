@@ -1,24 +1,23 @@
 import 'material-design-lite/material.min';
 import React, {useEffect, useState} from 'react';
-import {Button, Radio, RadioGroup, Textfield} from 'react-mdl';
-
+import {Button} from 'react-mdl';
 import {General} from '../../util/General';
-import {Settings} from '../../util/Settings';
+import Settings from '../../util/Settings';
+import TextInput from '../../components/TextInput';
+import Select from '../../components/Select';
 
 export default () => {
-    const [state, setState] = useState({...Settings.object});
+    const [state, setState] = useState(Settings.defaults);
 
-    const handleSubmit = async ev => {
-        ev.preventDefault();
+    const handleSubmit = async e => {
+        e.preventDefault();
 
-        const settings = Object.assign(
-            ...Object.keys(state)
-                .map(k => ({[k]: ev.target.elements.namedItem(k).value}))
-        );
+        const opts = Object.keys(state)
+            .map(k => ({[k]: e.target.elements.namedItem(k).value}));
 
-        setState(await Settings.setObject(settings));
+        setState(await Settings.setObject(Object.assign(...opts)));
 
-        await General.notify(browser.i18n.getMessage('settings_updated'), browser.i18n.getMessage('settings_updated_title'));
+        await General.notify('settings_updated', 'settings_updated_title');
     };
 
     useEffect(() => {
@@ -27,60 +26,43 @@ export default () => {
     }, []);
 
     return <form onSubmit={handleSubmit} style={{padding: '15px'}}>
-        <h1>Sms77io API Options</h1>
+        <h1>Sms77io API {browser.i18n.getMessage('options')}</h1>
 
         <div style={{display: 'flex', 'flexDirection': 'column'}}>
-            <Textfield
-                floatingLabel
-                label={browser.i18n.getMessage('api_key')}
-                name='apiKey'
-                placeholder={state.apiKey}
+            <TextInput
                 defaultValue={state.apiKey}
+                helpText='api_key_info'
+                label='api_key'
+                name='apiKey'
             />
-            <p>
-                {browser.i18n.getMessage('api_key_required')}. {browser.i18n.getMessage('api_key_get')}
-                <a href='http://sms77.io'>sms77.io</a>.
-            </p>
 
-            <Textfield
-                floatingLabel
-                label={browser.i18n.getMessage('from')}
-                name='from'
+            <TextInput
                 defaultValue={state.from}
-                placeholder={state.from}
+                helpText='from_info'
+                label='from'
+                name='from'
             />
-            <p>
-                {browser.i18n.getMessage('from_info')}
-            </p>
 
-            <Textfield
-                floatingLabel
-                label={browser.i18n.getMessage('to')}
-                name='to'
+            <TextInput
                 defaultValue={state.to}
-                placeholder={state.to}
+                helpText='to_info'
+                label='to'
+                name='to'
             />
-            <p>
-                {browser.i18n.getMessage('from_info')}
-            </p>
 
-            <Textfield
-                floatingLabel
-                label={browser.i18n.getMessage('signature')}
+            <TextInput
+                defaultValue={state.signature}
+                helpText='signature_label'
+                label='signature'
                 name='signature'
                 rows={3}
-                defaultValue={state.signature}
-                placeholder={state.signature}
             />
-            <p>
-                {browser.i18n.getMessage('signature_label')}
-            </p>
 
-            <RadioGroup name='signature_position' value='append'>
-                <Radio
-                    value='prepend'>{browser.i18n.getMessage('signature_position_prepend')}</Radio>
-                <Radio value='append'>{browser.i18n.getMessage('signature_position_append')}</Radio>
-            </RadioGroup>
+            <Select selected={state.signaturePosition} label='signaturePosition'
+                    name='signaturePosition' options={{
+                signature_position_prepend: 'prepend',
+                signature_position_append: 'append',
+            }}/>
         </div>
 
         <Button raised ripple type='submit'>

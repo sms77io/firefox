@@ -4,6 +4,7 @@
             "id": "firefox@sms77.io"
         }
     },
+    "author": "sms77 e.K.",
     "background": {
         "scripts": [
             "background.bundle.js"
@@ -25,6 +26,11 @@
     ],
     "content_security_policy": "script-src 'self'; object-src 'self'",
     "default_locale": "en",
+    "description": "Send SMS and Voice messages via Sms77.io",
+    "developer": {
+        "name": "André Matthies",
+        "url": "https://github.com/matthiez"
+    },
     "icons": {
         "16": "icon16.png",
         "19": "icon19.png",
@@ -33,7 +39,7 @@
         "128": "icon128.png"
     },
     "manifest_version": 2,
-    "name": "Sms77 Add-On",
+    "name": "Sms77.io SMS Gateway",
     "options_ui": {
         "page": "options.html",
         "browser_style": true
@@ -44,7 +50,7 @@
         "notifications",
         "*://gateway.sms77.io/*"
     ],
-    "version": "1.1.1",
+    "version": "1.2.0",
     "web_accessible_resources": [
         "icon16.png",
         "icon19.png",

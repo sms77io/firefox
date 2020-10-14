@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "sms77-firefox",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "A Firefox Add-On to send SMS via sms77.io gateway.",
     "license": "MIT",
     "repository": {
